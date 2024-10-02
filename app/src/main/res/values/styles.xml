@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--Стиль текста заголовков-->
+    <style name="TextViewTitle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/text_size_title</item>
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:layout_marginStart">@dimen/layout_margin_start</item>
+    </style>
+
+    <!--Стиль для LinearLayout-->
+    <style name="LinearLayoutStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">0dp</item>
+        <item name="android:layout_marginTop">@dimen/layout_margin_vertical</item>
+        <item name="android:background">@drawable/custom_linear_layout</item>
+        <item name="android:gravity">center</item>
+        <item name="android:orientation">horizontal</item>
+    </style>
+
+    <!--Стиль EditText-->
+    <style name="EditTextStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center</item>
+        <item name="android:inputType">numberDecimal</item>
+        <item name="android:ems">4</item>
+        <item name="android:maxLength">5</item>
+        <item name="android:textSize">@dimen/text_size_edit_text</item>
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:minHeight">48dp</item>
+        <item name="android:textColorHint">@color/gray_hint_text</item>
+    </style>
+
+    <!--Стиль для кнопок Chip-->
+    <style name="ButtonChoiceChip" parent="Widget.MaterialComponents.Chip.Choice">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textSize">@dimen/text_size_button</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:minHeight">50dp</item>
+    </style>
+
+    <!--Стиль для кнопки с картинкой-->
+    <style name="IconChoiceChip" parent="Widget.MaterialComponents.Chip.Choice">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="chipIconVisible">true</item>
+        <item name="chipIconSize">120dp</item>
+        <item name="chipMinHeight">160dp</item>
+        <item name="chipStartPadding">20dp</item>
+        <item name="chipCornerRadius">20dp</item>
+    </style>
+
+    <!--Стиль для кнопок ToggleButton-->
+    <style name="ToggleButton" parent="@style/Widget.Material3.Button.OutlinedButton">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textSize">@dimen/text_size_button</item>
+        <item name="android:textStyle">normal</item>
+    </style>
+
+</resources>

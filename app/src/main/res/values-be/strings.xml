@@ -1,0 +1,73 @@
+<resources>
+    <!--activity_main.xml-->
+    <string name="text_view_size_product">Памеры выраба, мм</string>
+    <string name="text_view_material">Матэрыял, мкм</string>
+    <string name="edit_text_thickness"><small>Таўшчыня</small></string>
+    <string name="text_view_machine">Абсталяванне</string>
+    <string name="text_view_location">Размяшчэнне вырабаў</string>
+    <string name="text_view_location_square">Выраб квадратны</string>
+    <string name="text_view_location_circle">Выраб круглы</string>
+    <string name="text_view_bfs_punching">Вырубка</string>
+    <string name="text_view_bfs">Сумешчаная</string>
+    <string name="text_view_punching">Разлучаная</string>
+    <string name="text_button_calc">Разлік</string>
+
+    <!--MainActivity.java-->
+    <string name="toast_machine_not_pp">Гэтая машына не працуе з РР</string>
+    <string name="toast_big_radius">Радыус выраба занадта вялікі</string>
+    <string name="toast_big_product">Памеры выраба завялікія для гэтага станка</string>
+    <string name="toast_size_not_zero">Дліна і шырыня павінны быць больш за нуль</string>
+    <string name="toast_size_not_data">Увядзіце карэктныя дадзеныя для разліку</string>
+    <string name="result_name_product">Выраб %sx%s мм</string>
+    <string name="result_name_product_circle">Выраб Ø%s мм</string>
+
+    <!--activity_paint.xml-->
+    <string name="text_view_result_title">Вынікі папярэдняга разліку</string>
+    <string name="text_view_result">\ %s, %s, машына %s;\n
+                        Форма %sх%s мм, %s месцаў, %s вырубка;\n
+                        Даўжыня нажоў %s мм (пры максімальнай - %s);\n
+                        Папярэдні памер кадра %sх%s мм;\n
+                        Тэарэтычная маса выраба %s±%s г, пры таўшчыні плёнкі %s мкм;\n
+                        Норма выдатку %s г, адыходнасць %s%%.</string>
+    <string name="text_view_result_mm">\ мм</string>
+    <string name="text_view_result_no_data">няма дадзенных</string>
+   <string name="storage_permissions_denied">Дазвол на захоўванне адхілен</string>
+    <string name="storage_permission_is_not_granted">Дазвол на захоўванне не пададзены</string>
+    <string name="settings_upper_case">НАЛАДЫ</string>
+    <string name="open_permissions_and_grant_the_storage_permission">«Дазволы» -> дазвол «Сховішча»</string>
+    <string name="storage_permission_is_required_to_save_the_file">Для захавання файла патрабуецца дазвол на захоўванне</string>
+    <string name="grant_upper_case">ДАЦЬ</string>
+
+    <!--fragment_info_knife.xml-->
+    <string name="fragment_info_knife">Прыведзены вынік разліку без уліку максімальнай дліны нажоў. Калі вам вядомы дадзеныя для гэтай машыны, напішыце мне, і я дадам іх.</string>
+
+    <!--fragment_num_product.xml-->
+    <string name="fragment_num_product">Дліна нажоў пасля разліку больш, чым максімальная. Прапаную вам убраць адзін рад:</string>
+    <string name="fragment_num_product_width">па шырыні формы</string>
+    <string name="fragment_num_product_step">па шагу формы</string>
+
+    <!--fragment_size_prod_rectangle.xml-->
+    <string name="edit_text_length"><small>Даўжыня</small></string>
+    <string name="edit_text_width"><small>Шырыня</small></string>
+    <string name="edit_text_radius"><small>Радыус</small></string>
+
+    <!--fragment_size_prod_square.xml-->
+    <string name="edit_text_side_square"><small>Бок</small></string>
+
+    <!--fragment_size_prod_circle.xml-->
+    <string name="fragment_edit_text_diameter"><small>Дыяметр</small></string>
+
+    <!--InfoDialogFragment.java-->
+    <string name="info_dialog_fragment_title"> Ад стваральніка</string>
+    <string name="info_dialog_fragment_text">  Дадзеная праграма разлічвае папярэднія параметры формы і прамалёўвае раскладку вырабаў.\n  Праграма напісана на чыстым запале, для спрашчэння ўласнай працы. Аўтарскіх праў няма, юзайце ў сваё задавальненне.\n  Калі ёсць пытанні, ці ведаеце параметры новага абсталявання, пішыце мне на пошту &lt;ya.rusakou@gmail.com&gt;.\n  Яўген Русакоў"</string>
+    <string name="info_dialog_fragment_send">Напісаць</string>
+    <string name="info_dialog_fragment_close">Зачыніць</string>
+
+    <!--NoInternetDialogFragment.java и no_internet_dialog_fragment.xml-->
+    <string name="no_internet_dialog_fragment_title">Няма падлучэння да сеткі</string>
+    <string name="no_internet_dialog_fragment_text">Адсутнічае злучэнне з сеткай.\n Праверце падлучэнне да інтэрнэту\n і абнавіце праграму.</string>
+
+    <!--SaveFile.java-->
+    <string name="file_saved_in_download">Файл захаваны ў \"Спампоўкі\"</string>
+    <string name="file_failed_to_save">Не атрымалася захаваць файл</string>
+</resources>

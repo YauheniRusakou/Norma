@@ -1,0 +1,92 @@
+<resources>
+    <string name="app_name" translatable="false">Norma</string>
+
+    <!--activity_main.xml-->
+    <string name="text_view_size_product">Size product, mm</string>
+    <string name="text_view_material">Material, µm</string>
+    <string name="edit_text_thickness"><small>Thickness</small></string>
+    <string name="text_view_machine">Machine</string>
+    <string name="text_view_location">Location products</string>
+    <string name="text_view_location_square">The product is square</string>
+    <string name="text_view_location_circle">The product is round</string>
+    <string name="text_view_bfs_punching">Cutting</string>
+    <string name="text_view_bfs">In-mould cut</string>
+    <string name="text_view_punching">In punching</string>
+    <string name="text_button_calc">Calculation</string>
+
+    <!--MainActivity.java-->
+    <string name="toast_machine_not_pp">This machine does not work with PP</string>
+    <string name="toast_big_radius">Product radius is too large</string>
+    <string name="toast_big_product">Dimensions are too big for this machine</string>
+    <string name="toast_size_not_zero">Length and width must be greater than zero</string>
+    <string name="toast_size_not_data">Enter correct data for calculation</string>
+    <string name="result_name_product">Product %sx%s mm</string>
+    <string name="result_name_product_circle">Product Ø%s mm</string>
+
+    <!--activity_paint.xml-->
+    <string name="text_view_result_title">Preliminary calculation results</string>
+    <string name="text_view_result">\ %s, %s, machine %s;\n
+                        Form %sх%s mm, %s quantity of places, %s;\n
+                        Knife length %s mm (at maximum - %s);\n
+                        Preliminary forming area %sх%s mm;\n
+                        Theoretical product weight %s±%s g, with film thickness %s  µm;\n
+                        Norm expense %s g, scrap %s%%.</string>
+    <string name="text_view_result_mm">\ mm</string>
+    <string name="text_view_result_no_data">no data</string>
+    <string name="storage_permissions_denied">Storage Permissions denied</string>
+    <string name="storage_permission_is_not_granted">Storage permission isn\'t granted</string>
+    <string name="settings_upper_case">SETTINGS</string>
+    <string name="open_permissions_and_grant_the_storage_permission">«Permissions» -> Permission «Storage»</string>
+    <string name="storage_permission_is_required_to_save_the_file">Storage permission is required to save the file</string>
+    <string name="grant_upper_case">GRANT</string>
+
+    <!--menu_main.xml-->
+    <string name="menu_main_text_title_settings" translatable="false">Settings</string>
+    <string name="menu_main_text_title_english" translatable="false">English</string>
+    <string name="menu_main_text_title_belarusian" translatable="false">Беларуская</string>
+    <string name="menu_main_text_title_russian" translatable="false">Русский</string>
+    <string name="menu_main_text_title_info" translatable="false">Info</string>
+
+    <!--menu_paint.xml-->
+    <string name="menu_paint_text_title_send" translatable="false">Send</string>
+    <string name="menu_paint_text_title_save" translatable="false">Save</string>
+
+    <!--fragment_info_knife.xml-->
+    <string name="fragment_info_knife">The calculation result is given without taking into account the maximum length of the knives. If you know the data for this machine, write to me and I will add it.</string>
+    <string name="fragment_info_knife_close" translatable="false">Close</string>
+
+    <!--fragment_num_product.xml-->
+    <string name="fragment_num_product">The length of the knives after calculation is greater than the maximum. I suggest you remove one line:</string>
+    <string name="fragment_num_product_width">by form width</string>
+    <string name="fragment_num_product_step">by form step</string>
+
+    <!--fragment_size_prod_rectangle.xml-->
+    <string name="edit_text_length"><small>Length</small></string>
+    <string name="edit_text_width"><small>Width</small></string>
+    <string name="edit_text_radius"><small>Radius</small></string>
+    <string name="fragment_size_prod_rectangle_x" translatable="false">x</string>
+    <string name="fragment_size_prod_rectangle_r" translatable="false">x R</string>
+
+    <!--fragment_size_prod_square.xml-->
+    <string name="fragment_size_prod_square_name" translatable="false">□</string>
+    <string name="edit_text_side_square"><small>Side</small></string>
+
+    <!--fragment_size_prod_circle.xml-->
+    <string name="fragment_size_prod_circle_name" translatable="false">Ø</string>
+    <string name="fragment_edit_text_diameter"><small>Diameter</small></string>
+
+    <!--InfoDialogFragment.java-->
+    <string name="info_dialog_fragment_title"> From the creator</string>
+    <string name="info_dialog_fragment_text">  This application calculates the preliminary parameters of the form and draws the layout of the products.\n  The program was written with pure enthusiasm to simplify my own work. There are no copyrights, use it for your own pleasure.\n  If you have questions or know the parameters of the new machine, write to me by email &lt;ya.rusakou@gmail.com&gt;.\n  Yauheni Rusakou</string>
+    <string name="info_dialog_fragment_send">Send</string>
+    <string name="info_dialog_fragment_close">Close</string>
+    <string name="title_email_app_norma" translatable="false">App Norma</string>
+
+    <!--NoInternetDialogFragment.java и no_internet_dialog_fragment.xml-->
+    <string name="no_internet_dialog_fragment_title">No network connection</string>
+    <string name="no_internet_dialog_fragment_text">No network connection.\n Check your internet connection\n and update the app.</string>
+
+    <!--SaveFile.java-->
+    <string name="file_saved_in_download">The file is saved in \"Downloads\"</string>
+    <string name="file_failed_to_save">Failed to save file</string>
+</resources>

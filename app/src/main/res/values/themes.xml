@@ -1,0 +1,11 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.Theme.Norma" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Customize your light theme here. -->
+        <item name="colorPrimaryDark">@color/color_primary_dark</item>
+        <!--<item name="android:forceDarkAllowed" tools:targetApi="q">false</item>-->
+        <!--<item name="android:background">#F3F4F6</item>-->
+    </style>
+
+    <style name="Theme.Norma" parent="Base.Theme.Norma" />
+</resources>

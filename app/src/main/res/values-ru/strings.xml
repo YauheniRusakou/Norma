@@ -1,0 +1,73 @@
+<resources>
+    <!--activity_main.xml-->
+    <string name="text_view_size_product">Размеры изделия, мм</string>
+    <string name="text_view_material">Материал, мкм</string>
+    <string name="edit_text_thickness"><small>Толщина</small></string>
+    <string name="text_view_machine">Оборудование</string>
+    <string name="text_view_location">Расположение изделий</string>
+    <string name="text_view_location_square">Изделие квадратное</string>
+    <string name="text_view_location_circle">Изделие круглое</string>
+    <string name="text_view_bfs_punching">Вырубка</string>
+    <string name="text_view_bfs">Совмещенная</string>
+    <string name="text_view_punching">Раздельная</string>
+    <string name="text_button_calc">Расчёт</string>
+
+    <!--MainActivity.java-->
+    <string name="toast_machine_not_pp">Эта машина не работает с РР</string>
+    <string name="toast_big_radius">Радиус изделия слишком большой</string>
+    <string name="toast_big_product">Размеры изделия слишком большие для этого станка</string>
+    <string name="toast_size_not_zero">Длина и ширина должны быть больше нуля</string>
+    <string name="toast_size_not_data">Введите корректные данные для расчёта</string>
+    <string name="result_name_product">Изделие %sx%s мм</string>
+    <string name="result_name_product_circle">Изделие Ø%s мм</string>
+
+    <!--activity_paint.xml-->
+    <string name="text_view_result_title">Результаты предварительного расчёта</string>
+    <string name="text_view_result">\ %s, %s, машина %s;\n
+                        Форма %sх%s мм, %s мест, %s вырубка;\n
+                        Длина ножей %s мм (при максимальной - %s);\n
+                        Предварительный размер кадра %sх%s мм;\n
+                        Теоретическая масса изделия %s±%s г, при толщине плёнки %s мкм;\n
+                        Норма расхода %s г, отходность %s%%.</string>
+    <string name="text_view_result_mm">\ мм</string>
+    <string name="text_view_result_no_data">нет данных</string>
+    <string name="storage_permissions_denied">Разрешение на хранение отклонено</string>
+    <string name="storage_permission_is_not_granted">Разрешение на хранение не предоставлено</string>
+    <string name="settings_upper_case">НАСТРОЙКИ</string>
+    <string name="open_permissions_and_grant_the_storage_permission">«Разрешения» -> Разрешение «Память»</string>
+    <string name="storage_permission_is_required_to_save_the_file">Для сохранения файла требуется разрешение на хранение</string>
+    <string name="grant_upper_case">ДАТЬ</string>
+
+    <!--fragment_info_knife.xml-->
+    <string name="fragment_info_knife">Результат расчета приведен без учета максимальной длины ножей. Если вы знаете данные для этой машины, напишите мне, и я добавлю их.</string>
+
+    <!--fragment_num_product.xml-->
+    <string name="fragment_num_product">Длина ножей после расчета больше максимальной. Предлагаю вам убрать один ряд:</string>
+    <string name="fragment_num_product_width">по ширине формы</string>
+    <string name="fragment_num_product_step">по шагу формы</string>
+
+    <!--fragment_size_prod_rectangle.xml-->
+    <string name="edit_text_length"><small>Длина</small></string>
+    <string name="edit_text_width"><small>Ширина</small></string>
+    <string name="edit_text_radius"><small>Радиус</small></string>
+
+    <!--fragment_size_prod_square.xml-->
+    <string name="edit_text_side_square"><small>Сторона</small></string>
+
+    <!--fragment_size_prod_circle.xml-->
+    <string name="fragment_edit_text_diameter"><small>Диаметр</small></string>
+
+    <!--InfoDialogFragment.java-->
+    <string name="info_dialog_fragment_title"> От создателя</string>
+    <string name="info_dialog_fragment_text">  Данное приложение рассчитывает предварительные параметры оснастки и прорисовывает раскладку изделий.\n  Программа написана на чистом энтузиазме, для упрощения собственной работы. Авторских прав нет, юзайте в свое удовольствие.\n  Если есть вопросы, или знаете параметры нового оборудования, пишите мне на почту &lt;ya.rusakou@gmail.com&gt;.\n  Евгений Русаков"</string>
+    <string name="info_dialog_fragment_send">Написать</string>
+    <string name="info_dialog_fragment_close">Закрыть</string>
+
+    <!--NoInternetDialogFragment.java и no_internet_dialog_fragment.xml-->
+    <string name="no_internet_dialog_fragment_title">Нет подключения к сети</string>
+    <string name="no_internet_dialog_fragment_text">Отсутствует соединение с сетью.\n Проверьте подключение к интернету\n и обновите приложение.</string>
+
+    <!--SaveFile.java-->
+    <string name="file_saved_in_download">Файл сохранён в папке \"Загрузки\"</string>
+    <string name="file_failed_to_save">Не удалось сохранить файл</string>
+</resources>

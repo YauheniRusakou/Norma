@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="layout_margin_frame">10dp</dimen>
+
+    <dimen name="layout_margin_vertical_title">20dp</dimen>
+    <dimen name="layout_margin_vertical">5dp</dimen>
+    <dimen name="layout_margin_start">15dp</dimen>
+
+    <dimen name="text_size_title">16sp</dimen>
+    <dimen name="text_size_edit_text">18sp</dimen>
+    <dimen name="text_size_button">15sp</dimen>
+</resources>

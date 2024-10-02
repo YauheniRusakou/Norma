@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <include
+        android:id="@+id/toolBarMain"
+        layout="@layout/toolbar_main"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipeRefreshLayout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/buttonCalc"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolBarMain"
+        android:layout_marginStart="@dimen/layout_margin_frame"
+        android:layout_marginEnd="@dimen/layout_margin_frame">
+
+        <ScrollView
+            android:id="@+id/scrollView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:fillViewport="true">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/textViewSizeProduct"
+                    style="@style/TextViewTitle"
+                    android:layout_marginTop="@dimen/layout_margin_vertical_title"
+                    android:text="@string/text_view_size_product"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <FrameLayout
+                    android:id="@+id/layoutSizeProduct"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textViewSizeProduct" />
+
+                <TextView
+                    android:id="@+id/textViewMaterial"
+                    style="@style/TextViewTitle"
+                    android:layout_marginTop="@dimen/layout_margin_vertical_title"
+                    android:text="@string/text_view_material"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/layoutSizeProduct" />
+
+                <LinearLayout
+                    android:id="@+id/linearLayoutMaterials"
+                    style="@style/LinearLayoutStyle"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textViewMaterial">
+
+                    <EditText
+                        android:id="@+id/editTextThickness"
+                        style="@style/EditTextStyle"
+                        android:hint="@string/edit_text_thickness"
+                        android:importantForAutofill="no" />
+
+                    <RadioGroup
+                        android:id="@+id/radioGroupMaterials"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:orientation="horizontal" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/textViewLocation"
+                    style="@style/TextViewTitle"
+                    android:layout_marginTop="@dimen/layout_margin_vertical_title"
+                    android:text="@string/text_view_location"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/linearLayoutMaterials" />
+
+                <LinearLayout
+                    android:id="@+id/linearLayoutLocation"
+                    style="@style/LinearLayoutStyle"
+                    android:minHeight="180dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textViewLocation">
+
+                    <com.google.android.material.chip.ChipGroup
+                        android:id="@+id/chipGroupLocation"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="4dp"
+                        app:selectionRequired="true"
+                        app:singleSelection="true">
+
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/chipLocationOne"
+                            style="@style/IconChoiceChip"
+                            android:checked="true"
+                            app:chipIcon="@drawable/button_loc_1" />
+
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/chipLocationTwo"
+                            style="@style/IconChoiceChip"
+                            app:chipIcon="@drawable/button_loc_2" />
+
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/chipLocationSquare"
+                            style="@style/ButtonChoiceChip"
+                            android:text="@string/text_view_location_square" />
+
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/chipLocationCircle"
+                            style="@style/ButtonChoiceChip"
+                            android:text="@string/text_view_location_circle" />
+                    </com.google.android.material.chip.ChipGroup>
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/textViewMachine"
+                    style="@style/TextViewTitle"
+                    android:layout_marginTop="@dimen/layout_margin_vertical_title"
+                    android:text="@string/text_view_machine"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/linearLayoutLocation" />
+
+                <LinearLayout
+                    android:id="@+id/linearLayoutModelMachines"
+                    style="@style/LinearLayoutStyle"
+                    android:orientation="vertical"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textViewMachine">
+
+                    <com.google.android.material.chip.ChipGroup
+                        android:id="@+id/chipGroupModelMachines"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:selectionRequired="true"
+                        app:singleSelection="true">
+                    </com.google.android.material.chip.ChipGroup>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/linearLayoutMachines"
+                    style="@style/LinearLayoutStyle"
+                    android:orientation="vertical"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/linearLayoutModelMachines">
+
+                    <com.google.android.material.chip.ChipGroup
+                        android:id="@+id/chipGroupMachines"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:chipSpacingVertical="-8dp"
+                        app:selectionRequired="true"
+                        app:singleSelection="true">
+                    </com.google.android.material.chip.ChipGroup>
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/textViewBFSPunching"
+                    style="@style/TextViewTitle"
+                    android:layout_marginTop="@dimen/layout_margin_vertical_title"
+                    android:text="@string/text_view_bfs_punching"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/linearLayoutMachines" />
+
+                <com.google.android.material.button.MaterialButtonToggleGroup
+                    android:id="@+id/toggleButtonBFSPunching"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/layout_margin_vertical"
+                    android:background="@drawable/custom_linear_layout"
+                    android:gravity="center"
+                    app:checkedButton="@+id/buttonPunching"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textViewBFSPunching"
+                    app:selectionRequired="true"
+                    app:singleSelection="true">
+
+                    <Button
+                        android:id="@+id/buttonBFS"
+                        style="@style/ToggleButton"
+                        android:text="@string/text_view_bfs" />
+
+                    <Button
+                        android:id="@+id/buttonPunching"
+                        style="@style/ToggleButton"
+                        android:text="@string/text_view_punching" />
+
+                </com.google.android.material.button.MaterialButtonToggleGroup>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </ScrollView>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+
+    <Button
+        android:id="@+id/buttonCalc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="onClickCalc"
+        android:text="@string/text_button_calc"
+        android:textAllCaps="true"
+        android:layout_marginStart="@dimen/layout_margin_frame"
+        android:layout_marginEnd="@dimen/layout_margin_frame"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
