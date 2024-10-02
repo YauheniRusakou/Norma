@@ -11,7 +11,7 @@ android {
         minSdk = 24
         targetSdk = 34
         versionCode = 2 //для Google Play
-        versionName = "1.0" //для пользователей
+        versionName = "1.1" //для пользователей
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -22,8 +22,8 @@ android {
             isMinifyEnabled = true // Включает сжатие, обфускацию и оптимизацию кода всего за тип сборки релиза вашего проекта
             isShrinkResources = true  // Включает сжатие ресурсов, которое выполняется
             proguardFiles(
-                    getDefaultProguardFile("proguard-android-optimize.txt"),
-                    "proguard-rules.pro"
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
             )
         }
     }

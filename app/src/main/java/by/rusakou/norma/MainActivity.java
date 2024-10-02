@@ -42,7 +42,7 @@ import by.rusakou.norma.file.*;
 import by.rusakou.norma.parser.*;
 
 /**
-  @author Русаков Евгений Михайлович.
+ @author Русаков Евгений Михайлович.
  */
 public class MainActivity extends AppCompatActivity {
 
@@ -176,7 +176,7 @@ public class MainActivity extends AppCompatActivity {
         swipeRefreshLayout.setColorSchemeResources(R.color.color_update);
         // указываем слушатель свайпов пользователя
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-             @Override
+            @Override
             public void onRefresh() {
                 updateActivity();
                 swipeRefreshLayout.setRefreshing(false);// убираем стандартную анимацию
@@ -385,8 +385,8 @@ public class MainActivity extends AppCompatActivity {
             };
             thread.start();
         } else  {
-                NoInternetDialogFragment dialog = new NoInternetDialogFragment();
-                dialog.show(getSupportFragmentManager(), "custom");
+            NoInternetDialogFragment dialog = new NoInternetDialogFragment();
+            dialog.show(getSupportFragmentManager(), "custom");
         }
     }
 
