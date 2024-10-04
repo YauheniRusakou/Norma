@@ -66,4 +66,15 @@
         <item name="android:textStyle">normal</item>
     </style>
 
+    <!--Стиль текста панели эксперта-->
+    <style name="TextViewExpert">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/text_size_expert</item>
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:layout_marginStart">@dimen/layout_margin_start</item>
+        <item name="android:layout_marginEnd">@dimen/layout_margin_start</item>
+    </style>
+
 </resources>

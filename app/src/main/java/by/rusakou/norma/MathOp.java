@@ -287,4 +287,26 @@ public final class MathOp {
         }
         return maxLengthKnife;
     }
+
+    /**
+     * Метод возвращает значение усадки из вида коэффициента в виде процента
+     *
+     * @param shrinkageCoefficient - усадка в виде коэффициента
+     * @return - усадка в виде процента
+     */
+    public static double runShrinkagePercent(double shrinkageCoefficient) {
+        double scale = 100; // округление до второго знака после запятой
+        return Math.round((100 * (1 - shrinkageCoefficient)) * scale) / scale;
+    }
+
+    /**
+     * Метод возвращает значение усадки из вида процента в виде коэффициента
+     *
+     * @param shrinkagePercent - усадка в виде процента
+     * @return - усадка в виде коэффициента
+     */
+    public static double runShrinkageCoefficient(double shrinkagePercent) {
+        double scale = 100000; // округление до пятого знака после запятой
+        return Math.round((1 - shrinkagePercent/100) * scale) / scale;
+    }
 }

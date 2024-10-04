@@ -55,6 +55,22 @@ public class PropertyParser {
                                     currentProperty.setStartMaterial(textValue);
                                 } else if("start_machine".equalsIgnoreCase(tagName)) {
                                     currentProperty.setStartMachine(textValue);
+                                } else if("count_advertising".equalsIgnoreCase(tagName)) {
+                                    currentProperty.setCountAdvertising(textValue);
+                                } else if("max_between_product".equalsIgnoreCase(tagName)) {
+                                    currentProperty.setMaxBetweenProduct(textValue);
+                                } else if("max_for_edge_form".equalsIgnoreCase(tagName)) {
+                                    currentProperty.setMaxForEdgeForm(textValue);
+                                } else if("max_for_chain".equalsIgnoreCase(tagName)) {
+                                    currentProperty.setMaxForChain(textValue);
+                                } else if("max_shrinkage_percent_ps".equalsIgnoreCase(tagName)) {
+                                    currentProperty.setMaxShrinkagePercentPS(textValue);
+                                } else if("max_shrinkage_percent_pet".equalsIgnoreCase(tagName)) {
+                                    currentProperty.setMaxShrinkagePercentPET(textValue);
+                                } else if("max_shrinkage_percent_pvc".equalsIgnoreCase(tagName)) {
+                                    currentProperty.setMaxShrinkagePercentPVC(textValue);
+                                } else if("max_shrinkage_percent_pp".equalsIgnoreCase(tagName)) {
+                                    currentProperty.setMaxShrinkagePercentPP(textValue);
                                 }
                             }
                             break;

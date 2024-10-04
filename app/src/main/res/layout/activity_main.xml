@@ -202,8 +202,39 @@
                         android:id="@+id/buttonPunching"
                         style="@style/ToggleButton"
                         android:text="@string/text_view_punching" />
-
                 </com.google.android.material.button.MaterialButtonToggleGroup>
+
+                <TextView
+                    android:id="@+id/textViewExpert"
+                    style="@style/TextViewTitle"
+                    android:layout_marginTop="@dimen/layout_margin_vertical_title"
+                    android:text="@string/text_view_expert"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/toggleButtonBFSPunching" />
+
+
+                <LinearLayout
+                    android:id="@+id/linearLayoutExpert"
+                    style="@style/LinearLayoutStyle"
+                    android:orientation="vertical"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textViewExpert">
+
+                    <CheckBox
+                        android:id="@+id/checkBoxExpert"
+                        style="@style/TextViewExpert"
+                        android:text="@string/text_checkbox_expert"
+                        android:onClick="onCheckboxExpertClicked"/>
+                </LinearLayout>
+
+                <FrameLayout
+                    android:id="@+id/layoutExpert"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/linearLayoutExpert" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>

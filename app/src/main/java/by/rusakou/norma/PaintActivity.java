@@ -45,6 +45,7 @@ import com.google.android.material.snackbar.Snackbar;
 import java.io.File;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
+import java.util.Locale;
 
 import by.rusakou.norma.draw.*;
 import by.rusakou.norma.file.*;
@@ -168,9 +169,9 @@ public class PaintActivity extends AppCompatActivity {
             fragmentTransaction.commit(); // Подтверждаем операцию
         }
         counter++; // увеличиваем счётчик
-        if(counter % 5 == 0) { //проверка на деление без остатка
-            Log.d(TAG, "counter = " + counter  + " тут будзе рэкляма :) ");
-        }
+        //if(counter % 5 == 0) { //проверка на деление без остатка
+        //Log.d(TAG, "counter = " + counter  + " тут будет межстраничная реклама :) ");
+        //}
         bannerAdView = findViewById(R.id.banner_ad_view); //Баннер рекламы AdMob
         AdRequest adRequest = new AdRequest.Builder().build();
         bannerAdView.loadAd(adRequest);
@@ -223,7 +224,7 @@ public class PaintActivity extends AppCompatActivity {
             textArrowFilmStep = new float[]{(arrowFilmStep.getCenterText()[0] + startX + formWidth + forChain / 2), (arrowFilmStep.getCenterText()[1] + startY - forStep)};
             pathArrowFilmStep = new DrawArrow.Path2(textArrowFilmStep[0], textArrowFilmStep[1]);
 
-            widthCadreView = startX + forChain + filmWidth + distanceToCadre; //Задаём размеры View
+            widthCadreView = 2*startX + formWidth + distanceToCadre - forChain/2; //Задаём размеры View
             heightCadreView = startY + filmStep + distanceToCadre;
             scalePxToDp = scalePixelsToDp(widthCadreView, this.getContext()); //маштаб для View
         }
@@ -293,13 +294,12 @@ public class PaintActivity extends AppCompatActivity {
      * Вспомогательный метод, который высчитывает маштаб для увеличения или уменьшения View всего кадра по ширине экрана.
      *
      * @param widthView - размер View всего кадра по ширине в px
-     * @param context   - глобальная информация о среде приложения
+     * @param context - глобальная информация о среде приложения
      * @return маштаб перевода View из px в dp экрана приложения
      */
     public static float scalePixelsToDp(float widthView, Context context) {
         DisplayMetrics metrics = context.getResources().getDisplayMetrics();
         widthDisplay = metrics.widthPixels;
-//        Log.d(TAG, "scalePixelsToDp = " + widthDisplay);
         return widthDisplay / widthView;
     }
 

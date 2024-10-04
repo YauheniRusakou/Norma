@@ -70,4 +70,20 @@
     <!--SaveFile.java-->
     <string name="file_saved_in_download">Файл захаваны ў \"Спампоўкі\"</string>
     <string name="file_failed_to_save">Не атрымалася захаваць файл</string>
+
+    <!--fragment_expert.xml и ExpertFragment.java-->
+    <string name="text_view_expert">Дадатковыя налады</string>
+    <string name="text_checkbox_expert">уключыць (для экспертаў)</string>
+    <string name="text_view_expert_set">Змяніце патрэбныя налады і націсніце кнопку \"Задаць\"</string>
+    <string name="button_expert_set">Задаць</string>
+    <string name="text_view_expert_mm">мм</string>
+    <string name="toast_expert_values_changed">Значэнні зменены</string>
+    <string name="text_view_expert_between_product">Паміж вырабамі\n(максімум %.0f мм)</string>
+    <string name="text_view_expert_for_edge_form">Ад выраба\nда края формы\n(максімум %.0f мм)</string>
+    <string name="text_view_expert_for_chain">На ланцугі\n(максімум %.0f мм)</string>
+    <string name="text_view_expert_shrinkage_ps">Усаджванне PS\n(максімум %.1f%%)</string>
+    <string name="text_view_expert_shrinkage_pet">Усаджванне PET\n(максімум %.1f%%)</string>
+    <string name="text_view_expert_shrinkage_pvc">Усаджванне PVC\n(максімум %.1f%%)</string>
+    <string name="text_view_expert_shrinkage_pp">Усаджванне PP\n(максімум %.1f%%)</string>
+
 </resources>

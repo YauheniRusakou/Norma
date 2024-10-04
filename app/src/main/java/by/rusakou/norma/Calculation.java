@@ -2,6 +2,7 @@ package by.rusakou.norma;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.util.Log;
 
 import java.util.ArrayList;
 
@@ -51,34 +52,50 @@ public class Calculation implements Parcelable {
      * @param sizeOneProduct - первый размер изделия
      * @param sizeTwoProduct - первый размер изделия
      * @param sizeRadiusProduct - радиус изделия
-     * @param thickness - первый размер изделия
+     * @param thickness - толщина плёнки
      * @param nameProduct - название изделия
      * @param material - материал
      * @param machine - оборудование
      * @param bfs - вырубка совмещенная (true), вырубка раздельная (false)
      * @param coefficient - коэффициент для расчёта нормы расхода
+     * @param expertValue - значения из панели эксперта, полученные от юзера
      */
     public Calculation(double sizeOneProduct, double sizeTwoProduct, double sizeRadiusProduct, double thickness,
-                       String nameProduct, Material material, Machine machine, boolean bfs, Coefficient coefficient) {
+                       String nameProduct, Material material, Machine machine, boolean bfs, Coefficient coefficient, double[] expertValue) {
 
         this.thickness = thickness;
         this.nameProduct = nameProduct;
         this.nameMaterial = material.getName();
-        this.shrinkage = material.getShrinkage();
+        //this.shrinkage = material.getShrinkage();
         this.density = material.getDensity();
         this.nameMachine = machine.getName();
         this.maxFormWidth = machine.getMaxFormWidth();
         this.maxFormLength= machine.getMaxFormLength();
         this.bfs = (bfs) ? 1 : 0; //передаём в Parcelable int, т.к. boolean он не передаёт. 1 = true, 0 = false (это для названия вырубки в результате)
-        if (bfs) { //если вырубка совмещенная
-            this.betweenProduct = machine.getBetweenProductBFS();
-            this.forEdgeForm = machine.getForEdgeFormBFS();
+        if(expertValue == null) { //если значения панели эксперта не заданы
+            //Log.d(TAG, "expertValue == null");
+            if (bfs) { //если вырубка совмещенная
+                this.betweenProduct = machine.getBetweenProductBFS();
+                this.forEdgeForm = machine.getForEdgeFormBFS();
+            }
+            if (!bfs) { //если вырубка раздельная
+                this.betweenProduct = machine.getBetweenProductPunching();
+                this.forEdgeForm = machine.getForEdgeFormPunching();
+            }
+            this.shrinkage = material.getShrinkage();
+            this.forChain = machine.getForChain();
         }
-        if (!bfs) { //если вырубка раздельная
-            this.betweenProduct = machine.getBetweenProductPunching();
-            this.forEdgeForm = machine.getForEdgeFormPunching();
+        if(expertValue != null) { //если значения панели эксперта заданы, то берём из них
+            //Log.d(TAG, "expertValue != null");
+            this.betweenProduct = expertValue[0];
+            this.forEdgeForm = expertValue[1];
+            this.forChain = expertValue[2];
+            if(material.getName().equals("PS")) this.shrinkage = expertValue[3];
+            if(material.getName().equals("PET")) this.shrinkage = expertValue[4];
+            if(material.getName().equals("PVC")) this.shrinkage = expertValue[5];
+            if(material.getName().equals("PP")) this.shrinkage = expertValue[6];
         }
-        this.forChain = machine.getForChain();
+
         boolean arrayMaxKnifeThickness = machine.isArrayMaxKnifeThickness();
         if(!arrayMaxKnifeThickness){ //если не задан массив максимальных длин ножей от толщины плёнки, а задана одна длина ножей
             if (material.getName().equals("PS")) this.maxLengthKnife = machine.getMaxLengthKnifePS();
@@ -97,6 +114,9 @@ public class Calculation implements Parcelable {
 
         if (machine.isTypeMachineK()) this.coefficientForNorm = coefficient.getCoefficientForNorm();
         if (!machine.isTypeMachineK()) this.coefficientForNorm = coefficient.getCoefficientForNorm();
+
+//        if(expertValue != null) Log.d(TAG, "expertValue != null");
+//        if(expertValue == null) Log.d(TAG, "expertValue == null");
 
         sizeOne = MathOp.runSizeKnife(sizeOneProduct, shrinkage); // Расчитываем размер лотка до усадки (по ножу)
         sizeTwo = MathOp.runSizeKnife(sizeTwoProduct, shrinkage);

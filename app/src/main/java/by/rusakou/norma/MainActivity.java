@@ -1,11 +1,11 @@
 package by.rusakou.norma;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentResultListener;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.appcompat.widget.Toolbar;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -18,9 +18,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.ScrollView;
 import android.widget.Toast;
 
 import com.google.android.gms.ads.MobileAds;
@@ -44,7 +46,7 @@ import by.rusakou.norma.file.*;
 import by.rusakou.norma.parser.*;
 
 /**
- @author Русаков Евгений Михайлович.
+  @author Русаков Евгений Михайлович.
  */
 public class MainActivity extends AppCompatActivity {
 
@@ -56,13 +58,16 @@ public class MainActivity extends AppCompatActivity {
     private Chip chipModelMachine, chipMachine, chipLocationOne, chipLocationTwo, chipLocationSquare, chipLocationCircle;
     private MaterialButtonToggleGroup toggleButtonBFSPunching;
     private Button buttonBFS, buttonPunching;
-    private FragmentManager fragmentManager;
-    private FragmentTransaction fragmentTransaction;
-    private Fragment fragmentRectangle, fragmentSquare, fragmentCircle;
+    private ScrollView scrollView;
+    private FragmentManager fragmentManager, fragmentManagerEx;
+    private FragmentTransaction fragmentTransaction, fragmentTransactionEx;
+    private Fragment fragmentRectangle, fragmentSquare, fragmentCircle, fragmentExpert;
     private List<Material> listMaterials = Collections.synchronizedList(new ArrayList<>());
     private List<Machine> listMachines = Collections.synchronizedList(new ArrayList<>());
     private List<Coefficient> listCoefficients = Collections.synchronizedList(new ArrayList<>());
     private List<Property> listProperties = Collections.synchronizedList(new ArrayList<>());
+    private CheckBox checkBoxExpert;
+    private double[] expertValue; //значения из панели эксперта, полученные от юзера
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,6 +88,8 @@ public class MainActivity extends AppCompatActivity {
         toggleButtonBFSPunching = findViewById(R.id.toggleButtonBFSPunching);
         buttonBFS = findViewById(R.id.buttonBFS);
         buttonPunching = findViewById(R.id.buttonPunching);
+        scrollView = findViewById(R.id.scrollView);
+        checkBoxExpert = findViewById(R.id.checkBoxExpert);
 
         //Добавляем фрагмент с размерами прямоугольного лотка для стартового экрана
         fragmentManager = getSupportFragmentManager();
@@ -136,6 +143,8 @@ public class MainActivity extends AppCompatActivity {
                 public void onCheckedChanged(@NonNull ChipGroup group, @NonNull List<Integer> checkedIds) {
                     chipGroupMachines.removeAllViews();
                     createChipMachine(listModelMachines);
+                    expertValue = null;//обнуляем значения юзера в панели экперта
+                    removeFragmentExpert(); //убираем фрагмент эксперта
                 }
             });
         } catch (InterruptedException e) {
@@ -170,6 +179,8 @@ public class MainActivity extends AppCompatActivity {
                 int checkedIdMachine = group.getCheckedChipId();
                 Machine machine = listMachines.get(checkedIdMachine);
                 postBFSPunchingButton(buttonBFS, machine.isMachineBFS(), buttonPunching, machine.isMachinePunching());
+                expertValue = null;//обнуляем значения юзера в панели экперта
+                removeFragmentExpert(); //убираем фрагмент эксперта
             }
         });
 
@@ -178,14 +189,29 @@ public class MainActivity extends AppCompatActivity {
         swipeRefreshLayout.setColorSchemeResources(R.color.color_update);
         // указываем слушатель свайпов пользователя
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
+             @Override
             public void onRefresh() {
                 updateActivity();
                 swipeRefreshLayout.setRefreshing(false);// убираем стандартную анимацию
             }
         });
 
-	// Инициализируем Google Mobile Ads SDK в фоновом потоке.
+        //Добавляем фрагмент с настройками эксперта
+        fragmentManagerEx = getSupportFragmentManager();
+        fragmentExpert = new ExpertFragment(); // Создаем фрагмент
+
+        //убираем фрагмент эксперта, при переключении раздельной или совмещённой вырубки
+        toggleButtonBFSPunching.addOnButtonCheckedListener(new MaterialButtonToggleGroup.OnButtonCheckedListener() {
+            @Override
+            public void onButtonChecked(MaterialButtonToggleGroup group, int checkedId, boolean isChecked) {
+                if (isChecked) {
+                    expertValue = null;//обнуляем значения юзера в панели экперта
+                    removeFragmentExpert();
+                }
+            }
+        });
+
+        // Инициализируем Google Mobile Ads SDK в фоновом потоке.
         new Thread(
                 () -> {
                     MobileAds.initialize(this, initializationStatus -> {});
@@ -214,6 +240,7 @@ public class MainActivity extends AppCompatActivity {
                         MachineParser parser = new MachineParser();
                         parser.parse(contentMachines);
                         listMachines = parser.getMachines();
+                        //Log.d(TAG, "Machine = " + listMachines.size());
                     }
                 }
                 {
@@ -313,6 +340,7 @@ public class MainActivity extends AppCompatActivity {
      */
     public void onClickCalc(View view) {
         if (isHostAvailable(listMaterials, listMachines, listCoefficients, listProperties)) { //проверяем загружены ли данные
+
             // Устанавливаем значения размеров лотка в зависимости от выбранного фрагмента: Прямоугольник, квадрат или круг
             if (fragmentManager.findFragmentByTag(SizeProdRectangleFragment.TAG) != null) {
                 editTextLengthProduct = findViewById(R.id.editTextLengthProduct);
@@ -334,18 +362,32 @@ public class MainActivity extends AppCompatActivity {
             Material material = listMaterials.get(checkedIdMaterial);
             int checkedIdMachine = chipGroupMachines.getCheckedChipId();
             Machine machine = listMachines.get(checkedIdMachine);
-            Log.d(TAG, "Machines " + machine + "\n");
+            //Log.d(TAG, "Machine " + machine + "\n");
             Coefficient coefficient = (machine.isTypeMachineK()) ? listCoefficients.get(1) : listCoefficients.get(0); //Тернарный оператор
             int checkedIdLocation = chipGroupLocation.getCheckedChipId();
             int checkedIdBFSPunching = toggleButtonBFSPunching.getCheckedButtonId();
             boolean bfs = (checkedIdBFSPunching == buttonBFS.getId()); //если вырубка совмещенная, то true, если раздельная то false
-            double forEdgeFormExam = (bfs) ? machine.getForEdgeFormBFS() : machine.getForEdgeFormPunching(); //Тернарный оператор
+
             Intent intent = new Intent(this, PaintActivity.class);
 
             Thread thread = new Thread() {
                 public void run() {
                     runOnUiThread(new Runnable() {
                         public void run() {
+                            // Значения для проверки размеров лотка, чтобы не превышали максимальные размеры формы
+                            double forEdgeFormExam = 0, shrinkageExam = 0;
+                            if(expertValue == null) { //если значения панели эксперта не заданы
+                                forEdgeFormExam = (bfs) ? machine.getForEdgeFormBFS() : machine.getForEdgeFormPunching(); //Тернарный оператор
+                                shrinkageExam = material.getShrinkage();
+                            }
+                            if(expertValue != null) { //если значения панели эксперта заданы, то берём из них
+                                forEdgeFormExam = expertValue[1];
+                                if(material.getName().equals("PS")) shrinkageExam = expertValue[3];
+                                if(material.getName().equals("PET")) shrinkageExam = expertValue[4];
+                                if(material.getName().equals("PVC")) shrinkageExam = expertValue[5];
+                                if(material.getName().equals("PP")) shrinkageExam = expertValue[6];
+                            }
+
                             //Проверяем чтобы машина работала с РР
                             if (material.getName().equals("PP") & !machine.isUsedPP()) {
                                 Toast.makeText(MainActivity.this, R.string.toast_machine_not_pp, Toast.LENGTH_LONG).show();
@@ -369,13 +411,17 @@ public class MainActivity extends AppCompatActivity {
                                     sizeOne = sizeTwo = Double.parseDouble(editTextLengthProduct.getText().toString().replace(",", "."));
                                     sizeRadius = (sizeOne - 0.01) / 2;
                                 }
-                                if (sizeOne > 0 & sizeTwo > 0) { //проверка, чтобы размеры лотка не равнялись нулю
-                                    if (((MathOp.runSizeKnife(sizeOne, material.getShrinkage()) + 2 * forEdgeFormExam) <= machine.getMaxFormWidth())
-                                            & ((MathOp.runSizeKnife(sizeTwo, material.getShrinkage()) + 2 * forEdgeFormExam) <= machine.getMaxFormLength())) { //Проверка размеров лотка, чтобы не превышали размеры формы
-                                        if ((sizeRadius < (0.5 * sizeOne)) & (sizeRadius < (0.5 * sizeTwo))) { //Проверка радиусов лотка, чтобы не превышали полдлины размера лотка
+                                //проверка, чтобы размеры лотка не равнялись нулю
+                                if (sizeOne > 0 & sizeTwo > 0) {
+                                    //Проверка размеров лотка, чтобы не превышали максимальные размеры формы
+                                    if (((MathOp.runSizeKnife(sizeOne, shrinkageExam) + 2 * forEdgeFormExam) <= machine.getMaxFormWidth())
+                                            & ((MathOp.runSizeKnife(sizeTwo, shrinkageExam) + 2 * forEdgeFormExam) <= machine.getMaxFormLength())) {
+                                        //Проверка радиусов лотка, чтобы не превышали полдлины размера лотка
+                                        if ((sizeRadius < (0.5 * sizeOne)) & (sizeRadius < (0.5 * sizeTwo))) {
 
                                             String nameProduct = getNameProduct(sizeOne, sizeTwo);
-                                            Calculation calc = new Calculation(sizeOne, sizeTwo, sizeRadius, thickness, nameProduct, material, machine, bfs, coefficient);
+                                            Calculation calc = new Calculation(sizeOne, sizeTwo, sizeRadius, thickness, nameProduct,
+                                                    material, machine, bfs, coefficient, expertValue);
                                             intent.putExtra(Calculation.class.getSimpleName(), calc);
                                             startActivity(intent);
 
@@ -385,17 +431,16 @@ public class MainActivity extends AppCompatActivity {
                                         Toast.makeText(MainActivity.this, R.string.toast_big_product, Toast.LENGTH_LONG).show();
                                 } else
                                     Toast.makeText(MainActivity.this, R.string.toast_size_not_zero, Toast.LENGTH_LONG).show();
-                            } else {
+                            } else
                                 Toast.makeText(MainActivity.this, R.string.toast_size_not_data, Toast.LENGTH_LONG).show();
-                            }
                         }
                     });
                 }
             };
             thread.start();
         } else  {
-            NoInternetDialogFragment dialog = new NoInternetDialogFragment();
-            dialog.show(getSupportFragmentManager(), "custom");
+                NoInternetDialogFragment dialog = new NoInternetDialogFragment();
+                dialog.show(getSupportFragmentManager(), "custom");
         }
     }
 
@@ -497,4 +542,91 @@ public class MainActivity extends AppCompatActivity {
             return false;
     }
 
+    /**
+     * Запуск панели эксперта.
+     *
+     * @param view - вызывается при нажатии на кнопку
+     */
+    public void onCheckboxExpertClicked(View view) { // Получаем флажок
+        if (isHostAvailable(listMaterials, listMachines, listCoefficients, listProperties)) { //проверяем загружены ли данные
+            checkBoxExpert = (CheckBox) view;
+            fragmentTransactionEx = fragmentManagerEx.beginTransaction();  // начинаем транзакцию
+
+            if (checkBoxExpert.isChecked()) {  // флажок отмечен
+
+                fragmentTransactionEx.add(R.id.layoutExpert, fragmentExpert, ExpertFragment.TAG); //Добавляем фрагмент с его тэгом, потом по этому тегу будем его отслеживать
+                fragmentTransactionEx.commit(); // Подтверждаем операцию
+
+                int checkedIdMachine = chipGroupMachines.getCheckedChipId();
+                Machine machine = listMachines.get(checkedIdMachine);
+                int checkedIdBFSPunching = toggleButtonBFSPunching.getCheckedButtonId();
+                boolean bfs = (checkedIdBFSPunching == buttonBFS.getId()); //если вырубка совмещенная, то true, если раздельная то false
+                Property property = listProperties.get(0);
+
+                //передаём Bundle в фрагмент экспера
+                Bundle bundleToExpert = new Bundle();
+                double[] valueToExpert = new double[14];
+                if (bfs) {
+                    valueToExpert[0] = machine.getBetweenProductBFS(); //Между лотками для машин с BFS
+                    valueToExpert[1] = machine.getForEdgeFormBFS(); //На край формы для машин с BFS
+                }
+                if (!bfs) {
+                    valueToExpert[0] = machine.getBetweenProductPunching(); //Между лотками для машин с раздельный вырубкой
+                    valueToExpert[1] = machine.getForEdgeFormPunching(); //На край формы для машин с раздельный вырубкой
+                }
+                valueToExpert[2] = machine.getForChain(); //На цепи
+                valueToExpert[3] = MathOp.runShrinkagePercent(listMaterials.get(0).getShrinkage()); // усадка в процентах PS
+                valueToExpert[4] = MathOp.runShrinkagePercent(listMaterials.get(1).getShrinkage()); // усадка в процентах PET
+                valueToExpert[5] = MathOp.runShrinkagePercent(listMaterials.get(2).getShrinkage()); // усадка в процентах PVC
+                valueToExpert[6] = MathOp.runShrinkagePercent(listMaterials.get(3).getShrinkage()); // усадка в процентах PP
+                valueToExpert[7] = property.getMaxBetweenProduct(); //максимум между лотками
+                valueToExpert[8] = property.getMaxForEdgeForm(); //максимум на край формы
+                valueToExpert[9] = property.getMaxForChain(); //максимум на цепи
+                valueToExpert[10] = property.getMaxShrinkagePercentPS(); //максимум усадка в процентах PS
+                valueToExpert[11] = property.getMaxShrinkagePercentPET(); //максимум усадка в процентах PET
+                valueToExpert[12] = property.getMaxShrinkagePercentPVC(); //максимум усадка в процентах PVC
+                valueToExpert[13] = property.getMaxShrinkagePercentPP(); //максимум усадка в процентах PP
+
+                bundleToExpert.putDoubleArray("bundleKeyToExpert", valueToExpert);
+                fragmentExpert.setArguments(bundleToExpert);
+
+                //получаем Bundle из фрагмента экспера
+               fragmentManagerEx.setFragmentResultListener("requestKey", this, new FragmentResultListener() {
+                   @Override
+                   public void onFragmentResult(@NonNull String requestKey, @NonNull Bundle bundle) {
+                       expertValue = bundle.getDoubleArray("bundleKeyFromExpert");
+                   }
+               });
+
+                //Скроллинг в самый низ
+                scrollView.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        View lastChild = scrollView.getChildAt(scrollView.getChildCount() - 1);
+                        int bottom = lastChild.getBottom() + scrollView.getPaddingBottom();
+                        int sy = scrollView.getScrollY();
+                        int sh = scrollView.getHeight();
+                        int delta = bottom - (sy + sh);
+                        scrollView.smoothScrollBy(0, delta);
+                    }
+                }, 100);
+
+            } else {
+                expertValue = null;
+                fragmentTransactionEx.remove(fragmentExpert).commit();
+            }
+        } else  {
+            NoInternetDialogFragment dialog = new NoInternetDialogFragment();
+            dialog.show(getSupportFragmentManager(), "custom");
+        }
+    }
+
+    /**
+     * Метод позволяет удалять панель эксперта из активити
+     */
+    public void removeFragmentExpert(){
+        checkBoxExpert.setChecked(false);
+        fragmentTransactionEx = fragmentManagerEx.beginTransaction().setReorderingAllowed(true);
+        fragmentTransactionEx.remove(fragmentExpert).commit();
+    }
 }

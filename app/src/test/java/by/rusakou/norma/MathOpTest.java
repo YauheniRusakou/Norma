@@ -149,4 +149,20 @@ public class MathOpTest {
         double expected = 8830;
         assertEquals(actual, expected, 0.01);
     }
+
+    @Test
+    public void testRunShrinkagePercent() {
+
+        double actual = MathOp.runShrinkagePercent(0.981);
+        double expected = 1.9;
+        assertEquals(actual, expected, 0.0001);
+    }
+
+    @Test
+    public void testRunShrinkageCoefficient() {
+
+        double actual = MathOp.runShrinkageCoefficient(1.9);
+        double expected = 0.981;
+        assertEquals(actual, expected, 0.0001);
+    }
 }
