@@ -1,6 +1,7 @@
 package by.rusakou.norma;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.Fragment;
@@ -22,6 +23,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import com.google.android.gms.ads.MobileAds;
 import com.google.android.material.button.MaterialButtonToggleGroup;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
@@ -182,6 +184,13 @@ public class MainActivity extends AppCompatActivity {
                 swipeRefreshLayout.setRefreshing(false);// убираем стандартную анимацию
             }
         });
+
+	// Инициализируем Google Mobile Ads SDK в фоновом потоке.
+        new Thread(
+                () -> {
+                    MobileAds.initialize(this, initializationStatus -> {});
+                })
+                .start();
     }
 
     /**

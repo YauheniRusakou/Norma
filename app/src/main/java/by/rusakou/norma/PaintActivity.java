@@ -36,6 +36,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.Manifest;
 
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.LoadAdError;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.io.File;
@@ -89,6 +93,7 @@ public class PaintActivity extends AppCompatActivity {
     private LinearLayout linearLayout;
     static int counter; // Счетчик объектов создаваемых в этом классе
     private static final int PERMISSION_REQUEST_CODE = 123;
+    private AdView bannerAdView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -166,6 +171,10 @@ public class PaintActivity extends AppCompatActivity {
         if(counter % 5 == 0) { //проверка на деление без остатка
             Log.d(TAG, "counter = " + counter  + " тут будзе рэкляма :) ");
         }
+        bannerAdView = findViewById(R.id.banner_ad_view); //Баннер рекламы AdMob
+        AdRequest adRequest = new AdRequest.Builder().build();
+        bannerAdView.loadAd(adRequest);
+        eventsAd(); //отслеживание рекламных событий баннера
     }
 
     //Класс DrawView является наследником View и переопределяет его метод onDraw. А этот метод дает нам доступ к объекту Canvas.
@@ -429,6 +438,40 @@ public class PaintActivity extends AppCompatActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    /**
+     * Метод позволяет отслеживать рекламные события AdMod
+     */
+    private void eventsAd() {
+        if (bannerAdView != null) {
+            bannerAdView.setAdListener(new AdListener() {
+                @Override
+                public void onAdClicked() {
+                    Log.d(TAG, "onAdClicked: >>Пользователь нажал на объявление.");
+                }
+                @Override
+                public void onAdClosed() {
+                    Log.d(TAG, "onAdClosed: >>Возврат в приложение после перехода по ссылке.");
+                }
+                @Override
+                public void onAdFailedToLoad(@NonNull LoadAdError adError) {
+                    Log.d(TAG, "onAdFailedToLoad: >>Ошибка \n " + adError);
+                }
+                @Override
+                public void onAdImpression() {
+                    Log.d(TAG, "onAdImpression: >>Pегистрация показа объявления.");
+                }
+                @Override
+                public void onAdLoaded() {
+                    Log.d(TAG, "onAdLoaded: >>Завершение загрузки рекламы.");
+                }
+                @Override
+                public void onAdOpened() {
+                    Log.d(TAG, "onAdOpened: >>Пользователь нажал на ссылку рекламы.");
+                }
+            });
+        }
     }
 
     // Ниже по коду методы необходимые для добавления разрешения на запись в файловую систему телефона.
