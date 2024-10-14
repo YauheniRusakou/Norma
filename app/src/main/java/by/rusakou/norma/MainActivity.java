@@ -16,6 +16,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.SubMenu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -477,12 +478,36 @@ public class MainActivity extends AppCompatActivity {
     //Добавляем Меню на панель  приложения
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
+
+
+
+        String[] languages2 = getResources().getStringArray(R.array.languages2);
+        for (int i = 0; i < languages2.length; i++){
+//            Log.d(TAG, languages[i] + " " + i);
+//            LangSetting langSetting = new LangSetting(languages2[i]);
+//            Log.d(TAG, langSetting.getString() + " " + i);
+            menu.add(languages2[i]);
+
+        }
+
+        menu.add(1, 1, 1, "Eng");
+        LangSetting langSetting = new LangSetting("RRR");
+
+        menu.add(langSetting.getString());
+        Log.d(TAG, langSetting.toString());
+        menu.add("Бел");
+        menu.add("Рус");
         return super.onCreateOptionsMenu(menu);
+
     }
+
+
 
     //Для реагирования нашей активити на щелчки в панели приложения
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
+
 
         if (item.getItemId() == R.id.english_language) {
             LoadLocal.saveFile(new Locale("en"/*, "US"*/), this);

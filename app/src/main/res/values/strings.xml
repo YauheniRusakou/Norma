@@ -113,5 +113,9 @@
     <string name="text_view_expert_shrinkage_pp">Shrinkage PP\n(maximum %.1f%%)</string>
 
 
-
+    <string-array name="languages2">
+        <item>Engl</item>
+        <item>Bela</item>
+        <item>russtan</item>
+    </string-array>
 </resources>
