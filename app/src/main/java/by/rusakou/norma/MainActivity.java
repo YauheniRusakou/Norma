@@ -40,6 +40,7 @@ import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 import java.util.Set;
 
 import by.rusakou.norma.dialog.*;
@@ -480,39 +481,12 @@ public class MainActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
 
-
-//        menu.getItem(1).setIcon(ContextCompat.getDrawable(this, R.drawable.img_settings_white));
-//        menu.findItem(0).setIcon(ContextCompat.getDrawable(this, R.drawable.img_settings_white));
-//        getSupportActionBar().setBackgroundDrawable(ContextCompat.getDrawable(this, R.drawable.img_settings_white));
-
-//        MenuItem item = menu.findItem(R.id.action_settings);
-
-//        MenuItem myMenuItem = menu.findItem(R.id.action_settings);
-//        getMenuInflater().inflate(R.menu.sub_menu, myMenuItem.subMenu);
-
-//        menu.addSubMenu(Menu.NONE, 8, Menu.NONE,"Menu1");
-//        SubMenu themeMenu = menu.findItem(R.id.action_settings).getSubMenu();
-////        themeMenu.clear();
-//        themeMenu.add(0, 9, Menu.NONE, "Automatic");
-//        themeMenu.add(0, 10, Menu.NONE, "Default");
-//        themeMenu.add(0, 11, Menu.NONE, "Night");
-
         MenuItem menuItem = menu.findItem(R.id.action_settings);
-//        menuItem.getSubMenu().add("Automatic");
-
-
-
 
         String[] langText = getResources().getStringArray(R.array.languages_text);
         for (int i = 0; i < langText.length; i++){
-            menuItem.getSubMenu().add(Menu.NONE, i, Menu.NONE, langText[i]);
-//            menu.add(Menu.NONE, i, Menu.NONE, langText[i]);
-//                    .setIcon(android.R.drawable.ic_delete).setShowAsAction( MenuItem.SHOW_AS_ACTION_WITH_TEXT);
-//                            | MenuItem.SHOW_AS_ACTION_WITH_TEXT);
+            Objects.requireNonNull(menuItem.getSubMenu()).add(Menu.NONE, i, Menu.NONE, langText[i]);
         }
-
-//        menu.getItem(1).setIcon(ContextCompat.getDrawable(MainActivity.this, R.drawable.img_no_internet));
-
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -522,7 +496,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 
-        if (item.getItemId() != R.id.action_info & item.getItemId() == R.id.action_settings) {
+        if (item.getItemId() != R.id.action_info & item.getItemId() != R.id.action_settings) {
             String[] langLocal= getResources().getStringArray(R.array.languages_local);
             String[] langLocalSplit = langLocal[item.getItemId()].split(",");
             if(langLocalSplit.length == 1) LoadLocal.saveFile(new Locale(langLocalSplit[0]), this); //language
