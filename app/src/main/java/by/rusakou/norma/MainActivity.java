@@ -481,8 +481,8 @@ public class MainActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
 
+        //Меню выбора языков
         MenuItem menuItem = menu.findItem(R.id.action_settings);
-
         String[] langText = getResources().getStringArray(R.array.languages_text);
         for (int i = 0; i < langText.length; i++){
             Objects.requireNonNull(menuItem.getSubMenu()).add(Menu.NONE, i, Menu.NONE, langText[i]);
@@ -490,12 +490,11 @@ public class MainActivity extends AppCompatActivity {
         return super.onCreateOptionsMenu(menu);
     }
 
-
-
     //Для реагирования нашей активити на щелчки в панели приложения
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 
+        //выбор языка пользователем
         if (item.getItemId() != R.id.action_info & item.getItemId() != R.id.action_settings) {
             String[] langLocal= getResources().getStringArray(R.array.languages_local);
             String[] langLocalSplit = langLocal[item.getItemId()].split(",");
@@ -504,22 +503,6 @@ public class MainActivity extends AppCompatActivity {
             restartApp();
             return true;
         }
-
-//        if (item.getItemId() == R.id.english_language) {
-//            LoadLocal.saveFile(new Locale("en"/*, "US"*/), this);
-//            restartApp();
-//            return true;
-//        }
-//        if (item.getItemId() == R.id.belarusian_language) {
-//            LoadLocal.saveFile(new Locale("be", "BY"), this);
-//            restartApp();
-//            return true;
-//        }
-//        if (item.getItemId() == R.id.russian_language) {
-//            LoadLocal.saveFile(new Locale("ru", "RU"), this);
-//            restartApp();
-//            return true;
-//        }
         if (item.getItemId() == R.id.action_info) {
             InfoDialogFragment dialog = new InfoDialogFragment();
             dialog.show(getSupportFragmentManager(), "custom");
@@ -527,17 +510,6 @@ public class MainActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-
-    public boolean Method(int i) {
-        if (i == 0) {
-            LoadLocal.saveFile(new Locale("en"/*, "US"*/), this);
-            restartApp();
-            return true;
-        }
-        return false;
-    }
-
-
 
     /**
      * Вспомогательный метод, который перезагружает приложение.
