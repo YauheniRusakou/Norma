@@ -3,7 +3,6 @@ package by.rusakou.norma;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentResultListener;
@@ -17,7 +16,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.SubMenu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -480,7 +478,6 @@ public class MainActivity extends AppCompatActivity {
     //Добавляем Меню на панель  приложения
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
-
         //Меню выбора языков
         MenuItem menuItem = menu.findItem(R.id.action_settings);
         String[] langText = getResources().getStringArray(R.array.languages_text);
@@ -493,7 +490,6 @@ public class MainActivity extends AppCompatActivity {
     //Для реагирования нашей активити на щелчки в панели приложения
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-
         //выбор языка пользователем
         if (item.getItemId() != R.id.action_info & item.getItemId() != R.id.action_settings) {
             String[] langLocal= getResources().getStringArray(R.array.languages_local);
