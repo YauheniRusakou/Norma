@@ -3,6 +3,7 @@ package by.rusakou.norma;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentResultListener;
@@ -480,25 +481,39 @@ public class MainActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.menu_main, menu);
 
 
+//        menu.getItem(1).setIcon(ContextCompat.getDrawable(this, R.drawable.img_settings_white));
+//        menu.findItem(0).setIcon(ContextCompat.getDrawable(this, R.drawable.img_settings_white));
+//        getSupportActionBar().setBackgroundDrawable(ContextCompat.getDrawable(this, R.drawable.img_settings_white));
 
-        String[] languages2 = getResources().getStringArray(R.array.languages2);
-        for (int i = 0; i < languages2.length; i++){
-//            Log.d(TAG, languages[i] + " " + i);
-//            LangSetting langSetting = new LangSetting(languages2[i]);
-//            Log.d(TAG, langSetting.getString() + " " + i);
-            menu.add(languages2[i]);
+//        MenuItem item = menu.findItem(R.id.action_settings);
 
+//        MenuItem myMenuItem = menu.findItem(R.id.action_settings);
+//        getMenuInflater().inflate(R.menu.sub_menu, myMenuItem.subMenu);
+
+//        menu.addSubMenu(Menu.NONE, 8, Menu.NONE,"Menu1");
+//        SubMenu themeMenu = menu.findItem(R.id.action_settings).getSubMenu();
+////        themeMenu.clear();
+//        themeMenu.add(0, 9, Menu.NONE, "Automatic");
+//        themeMenu.add(0, 10, Menu.NONE, "Default");
+//        themeMenu.add(0, 11, Menu.NONE, "Night");
+
+        MenuItem menuItem = menu.findItem(R.id.action_settings);
+//        menuItem.getSubMenu().add("Automatic");
+
+
+
+
+        String[] langText = getResources().getStringArray(R.array.languages_text);
+        for (int i = 0; i < langText.length; i++){
+            menuItem.getSubMenu().add(Menu.NONE, i, Menu.NONE, langText[i]);
+//            menu.add(Menu.NONE, i, Menu.NONE, langText[i]);
+//                    .setIcon(android.R.drawable.ic_delete).setShowAsAction( MenuItem.SHOW_AS_ACTION_WITH_TEXT);
+//                            | MenuItem.SHOW_AS_ACTION_WITH_TEXT);
         }
 
-        menu.add(1, 1, 1, "Eng");
-        LangSetting langSetting = new LangSetting("RRR");
+//        menu.getItem(1).setIcon(ContextCompat.getDrawable(MainActivity.this, R.drawable.img_no_internet));
 
-        menu.add(langSetting.getString());
-        Log.d(TAG, langSetting.toString());
-        menu.add("Бел");
-        menu.add("Рус");
         return super.onCreateOptionsMenu(menu);
-
     }
 
 
@@ -507,23 +522,30 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 
+        if (item.getItemId() != R.id.action_info & item.getItemId() == R.id.action_settings) {
+            String[] langLocal= getResources().getStringArray(R.array.languages_local);
+            String[] langLocalSplit = langLocal[item.getItemId()].split(",");
+            if(langLocalSplit.length == 1) LoadLocal.saveFile(new Locale(langLocalSplit[0]), this); //language
+            if(langLocalSplit.length == 2) LoadLocal.saveFile(new Locale(langLocalSplit[0],langLocalSplit[1]), this); //country, если задана
+            restartApp();
+            return true;
+        }
 
-
-        if (item.getItemId() == R.id.english_language) {
-            LoadLocal.saveFile(new Locale("en"/*, "US"*/), this);
-            restartApp();
-            return true;
-        }
-        if (item.getItemId() == R.id.belarusian_language) {
-            LoadLocal.saveFile(new Locale("be", "BY"), this);
-            restartApp();
-            return true;
-        }
-        if (item.getItemId() == R.id.russian_language) {
-            LoadLocal.saveFile(new Locale("ru", "RU"), this);
-            restartApp();
-            return true;
-        }
+//        if (item.getItemId() == R.id.english_language) {
+//            LoadLocal.saveFile(new Locale("en"/*, "US"*/), this);
+//            restartApp();
+//            return true;
+//        }
+//        if (item.getItemId() == R.id.belarusian_language) {
+//            LoadLocal.saveFile(new Locale("be", "BY"), this);
+//            restartApp();
+//            return true;
+//        }
+//        if (item.getItemId() == R.id.russian_language) {
+//            LoadLocal.saveFile(new Locale("ru", "RU"), this);
+//            restartApp();
+//            return true;
+//        }
         if (item.getItemId() == R.id.action_info) {
             InfoDialogFragment dialog = new InfoDialogFragment();
             dialog.show(getSupportFragmentManager(), "custom");
@@ -531,6 +553,17 @@ public class MainActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
+    public boolean Method(int i) {
+        if (i == 0) {
+            LoadLocal.saveFile(new Locale("en"/*, "US"*/), this);
+            restartApp();
+            return true;
+        }
+        return false;
+    }
+
+
 
     /**
      * Вспомогательный метод, который перезагружает приложение.

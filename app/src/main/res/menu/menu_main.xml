@@ -8,19 +8,28 @@
         android:orderInCategory="1"
         app:showAsAction="ifRoom" />
 
+<!--    <item android:id="@+id/action_settings"-->
+<!--        android:title="@string/menu_main_text_title_settings"-->
+<!--        android:icon="@drawable/img_settings_white"-->
+<!--        android:orderInCategory="2"-->
+<!--        app:showAsAction="ifRoom" >-->
+<!--            <menu>-->
+<!--                <item android:id="@+id/english_language"-->
+<!--                    android:title="@string/menu_main_text_title_english" />-->
+<!--                <item android:id="@+id/belarusian_language"-->
+<!--                    android:title="@string/menu_main_text_title_belarusian" />-->
+<!--                <item android:id="@+id/russian_language"-->
+<!--                    android:title="@string/menu_main_text_title_russian" />-->
+<!--            </menu>-->
+<!--    </item>-->
+
     <item android:id="@+id/action_settings"
-        android:title="@string/menu_main_text_title_settings"
-        android:icon="@drawable/img_settings_white"
-        android:orderInCategory="2"
-        app:showAsAction="ifRoom"        >
-            <menu>
-                <item android:id="@+id/english_language"
-                    android:title="@string/menu_main_text_title_english" />
-                <item android:id="@+id/belarusian_language"
-                    android:title="@string/menu_main_text_title_belarusian" />
-                <item android:id="@+id/russian_language"
-                    android:title="@string/menu_main_text_title_russian" />
-            </menu>
+            android:title="@string/menu_main_text_title_settings"
+            android:icon="@drawable/img_settings_white"
+            android:orderInCategory="2"
+            app:showAsAction="ifRoom" >
+        <menu>
+        </menu>
     </item>
 
 </menu>
