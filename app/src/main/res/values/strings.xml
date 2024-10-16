@@ -42,9 +42,6 @@
 
     <!--menu_main.xml-->
     <string name="menu_main_text_title_settings" translatable="false">Settings</string>
-    <string name="menu_main_text_title_english" translatable="false">English</string>
-    <string name="menu_main_text_title_belarusian" translatable="false">Беларуская</string>
-    <string name="menu_main_text_title_russian" translatable="false">Русский</string>
     <string name="menu_main_text_title_info" translatable="false">Info</string>
 
     <!--menu_paint.xml-->
@@ -90,7 +87,6 @@
     <string name="file_saved_in_download">The file is saved in \"Downloads\"</string>
     <string name="file_failed_to_save">Failed to save file</string>
 
-<!--    <string name="hello_blank_fragment">Hello blank fragment</string>-->
     <!--fragment_expert.xml и ExpertFragment.java-->
     <string name="text_view_expert">Additional settings</string>
     <string name="text_checkbox_expert">turn on (for experts)</string>
@@ -111,7 +107,5 @@
     <string name="text_view_expert_shrinkage_pet">Shrinkage PET\n(maximum %.1f%%)</string>
     <string name="text_view_expert_shrinkage_pvc">Shrinkage PVC\n(maximum %.1f%%)</string>
     <string name="text_view_expert_shrinkage_pp">Shrinkage PP\n(maximum %.1f%%)</string>
-
-
 
 </resources>
