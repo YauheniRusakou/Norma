@@ -10,8 +10,8 @@ android {
         applicationId = "by.rusakou.norma"
         minSdk = 24
         targetSdk = 34
-        versionCode = 7 //для Google Play
-        versionName = "2.1.1" //для пользователей
+        versionCode = 10 //для Google Play
+        versionName = "2.1.2" //для пользователей
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
